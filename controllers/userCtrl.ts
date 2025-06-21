@@ -2,11 +2,14 @@ import { Request, Response } from "express"
 import { PrismaClient } from "@prisma/client"
 import bcrypt from "bcrypt"
 import jwt from  "jsonwebtoken"
+import { tokenInv } from "../tokeninv"
+import { log } from "console"
 
 const JWT_SECRET = "clefSecrete";
 const prisma = new PrismaClient()
 const userCtrl ={
- signup: async (req: Request, res: Response) => {
+
+signup: async (req: Request, res: Response) => {
   try {
     const {name,email,password} = req.body
     if (!name || !email) {
@@ -67,7 +70,41 @@ const userCtrl ={
       console.error(error)
       res.status(500).json({msg:"erreur serveur"})
     }
-  }
+  },
+  logout: async(req:Request, res:Response)=>{
+    try{
+       const authHeader = req.headers.authorization;
+       const token = authHeader?.split(" ")[1];
+
+    if (!token) {
+       res.status(400).json({ msg: "token manquant" });
+    }else{
+      tokenInv.push(token);
+      res.status(200).json({ msg: "déconnexion réussie, token invalidé" });
+    }
+    }catch(error){
+      console.log(error);
+      res.status(404).json({msg:"erreur"})
+      
+    }
+  },
+  getUser: async (req:Request, res:Response) => {
+    try {
+      const userData = (req as any).user
+      const user = await prisma.user.findUnique({
+        where: { email: userData.email },
+        select: { id: true, name: true, email: true, createdAt: true }
+      })
+
+      if (!user) {
+            res.status(404).json({ msg: "Utilisateur non trouvé" })
+      }
+      res.status(200).json({ user })
+    } catch (error) {
+       res.status(500).json({msg:"erreur serveur"})
+    }
+  },
 }
 
 export default userCtrl
+
