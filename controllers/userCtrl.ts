@@ -43,31 +43,31 @@ const userCtrl ={
         res.status(400).json({ msg:"email et mot de passe requis"})
       }
 
-      const user = await prisma.user.findUnique({ 
-        where: { email }
+      const User = await prisma.user.findUnique({ 
+        where: {email}
        })
-      if (!user) {
+      if (!User) {
         res.status(404).json({msg:"utilisateur non trouvé"})
-      }
-
-      const validPassword = await bcrypt.compare(password, user.password);
+      }else{
+      const validPassword = await bcrypt.compare(password, User.password)
       if (!validPassword) {
-        res.status(404).json({msg:"mot de passe incorrect"});
-      }
-
-      const token = jwt.sign(
-        { userId: user.id, email: user.email },
-        JWT_SECRET,
+        res.status(404).json({msg:"mot de passe est incorrect"})
+      } else{
+        const token = jwt.sign(
+        {id: User.id, 
+        email: User.email 
+        },JWT_SECRET,
         {expiresIn:"1h"}
       );
-
-      res.status(200).json({ token });
+      res.status(200).json({token})
+      }
+    }
+     
     } catch (error) {
-      console.error(error);
-      res.status(500).json({msg:"erreur serveur"});
+      console.error(error)
+      res.status(500).json({msg:"erreur serveur"})
     }
   }
-
 }
 
 export default userCtrl
