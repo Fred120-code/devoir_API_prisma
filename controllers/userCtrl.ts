@@ -104,6 +104,42 @@ signup: async (req: Request, res: Response) => {
        res.status(500).json({msg:"erreur serveur"})
     }
   },
+ updateUser: async (req:Request, res:Response) => {
+  try {
+    const userData = (req as any).user
+    const { name, email, password } = req.body;
+
+    const existUser = await prisma.user.findUnique({
+      where: {email:userData.email}
+    })
+
+    if (!existUser) {
+      res.status(404).json({ msg: "Utilisateur non trouvé" })
+    } 
+    else{
+      const updatedData: any = {}
+    if (name) updatedData.name = name
+    if (email) updatedData.email = email
+    if (password) updatedData.password = await bcrypt.hash(password, 10)
+
+    const updatedUser = await prisma.user.update({
+      where: { id: existUser.id },
+      data: updatedData,
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        createdAt: true
+      }
+    })
+    res.status(200).json({msg:"usser mis a jour avec succes", user:updatedUser})
+    }
+  } catch (error) {
+    console.error("erreur lors de la mise a jour:", error)
+     res.status(500).json({msg: "Erreur serveur" })
+  }
+},
+
 }
 
 export default userCtrl
