@@ -5,7 +5,7 @@ import jwt from  "jsonwebtoken"
 import { tokenInv } from "../tokeninv"
 import { log } from "console"
 
-const JWT_SECRET = "clefSecrete";
+const JWT_SECRET = "clefSecrete"
 const prisma = new PrismaClient()
 const userCtrl ={
 
@@ -107,23 +107,22 @@ signup: async (req: Request, res: Response) => {
  updateUser: async (req:Request, res:Response) => {
   try {
     const userData = (req as any).user
-    const { name, email, password } = req.body;
+    const {name, email, password} = req.body
 
     const existUser = await prisma.user.findUnique({
       where: {email:userData.email}
     })
 
     if (!existUser) {
-      res.status(404).json({ msg: "Utilisateur non trouvé" })
-    } 
-    else{
+      res.status(404).json({msg:"utilisateur non trouvé"})
+    }else{
       const updatedData: any = {}
     if (name) updatedData.name = name
     if (email) updatedData.email = email
     if (password) updatedData.password = await bcrypt.hash(password, 10)
 
     const updatedUser = await prisma.user.update({
-      where: { id: existUser.id },
+      where: {id: existUser.id},
       data: updatedData,
       select: {
         id: true,
@@ -136,11 +135,30 @@ signup: async (req: Request, res: Response) => {
     }
   } catch (error) {
     console.error("erreur lors de la mise a jour:", error)
-     res.status(500).json({msg: "Erreur serveur" })
+     res.status(500).json({msg:"erreur serveur"})
+  }
+},
+
+deletUser: async (req: Request, res: Response) => {
+  try {
+    const userData = (req as any).user
+    const user = await prisma.user.findUnique({
+      where: { email: userData.email }
+    });
+    if (!user) {
+      res.status(404).json({ msg: "compte de l'utilisateur non trouvé" })
+    }else{
+    await prisma.user.delete({
+      where: { id: user.id }
+    });
+
+    res.status(200).json({ msg: "Compte de l'utilisateur supprimé avec succès", user });
+    }
+  } catch (error) {
+    console.error("erreur lors de la suppression :", error);
+     res.status(500).json({ msg: "erreur serveur" });
   }
 },
 
 }
-
 export default userCtrl
-

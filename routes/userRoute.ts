@@ -9,6 +9,7 @@ router.post("/login", userCtrl.login)
 router.post("/logout",authen ,userCtrl.logout)
 router.get("/profile", authen, userCtrl.getUser)
 router.put("/profile", authen, userCtrl.updateUser)
+router.delete("/profile", authen, userCtrl.deletUser)
 
 export default router;
 
