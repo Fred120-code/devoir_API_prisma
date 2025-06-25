@@ -10,23 +10,40 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  name      String
-  email     String   @unique
-  password  String
-  createdAt DateTime @default(now())
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  email         String   @unique
+  password      String
+  createdAt     DateTime @default(now())
+  emprunt       emprunt[]
+  notification  notif[]
 }
 model livre {
   id             String   @id @default(auto()) @map("_id") @db.ObjectId
   titre          String
   auteur         String
   description    String
-  anneePub  Int
+  anneePub       Int
   ISBN           String   @unique
   createdAt      DateTime @default(now())
+  emprunt        emprunt[]
+  notification   notif[]
 }
-model emprunts{
-  emprunID String  @id @default(auto()) @map("_id") @db.ObjectId
-  dateEmprunt DateTime
-  dateRetour
+model emprunt{
+  emprunID      String  @id @default(auto()) @map("_id") @db.ObjectId
+  livreID       String  @db.ObjectId   //cle etrangère venant de livre
+  userID        String  @db.ObjectId  //cle etrangère venant de user
+  dateEmprunt   DateTime @default(now())
+  dateRetour    DateTime?
+  estEmprunté   Boolean @default(false)
+  user          User    @relation(fields: [userID], references: [id])
+  livre         livre @relation(fields: [livreID], references: [id])
+}
+model notif{
+  notifID       String @id @default(auto()) @map("_id") @db.ObjectId
+  userID        String @db.ObjectId //cle etrangere venant de user
+  livreID       String @db.ObjectId //cle etrangere venant de livre
+  message       String
+  user          User @relation(fields: [userID], references: [id])
+  livre         livre @relation(fields: [livreID], references: [id])
 }
