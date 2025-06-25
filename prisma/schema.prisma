@@ -16,3 +16,17 @@ model User {
   password  String
   createdAt DateTime @default(now())
 }
+model livre {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  titre          String
+  auteur         String
+  description    String
+  anneePub  Int
+  ISBN           String   @unique
+  createdAt      DateTime @default(now())
+}
+model emprunts{
+  emprunID String  @id @default(auto()) @map("_id") @db.ObjectId
+  dateEmprunt DateTime
+  dateRetour
+}

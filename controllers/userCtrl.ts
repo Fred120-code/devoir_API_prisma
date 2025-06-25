@@ -3,7 +3,7 @@ import { PrismaClient } from "@prisma/client"
 import bcrypt from "bcrypt"
 import jwt from  "jsonwebtoken"
 import { tokenInv } from "../tokeninv"
-import { log } from "console"
+
 
 const JWT_SECRET = "clefSecrete"
 const prisma = new PrismaClient()

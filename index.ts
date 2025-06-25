@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import morgan from "morgan"
 import dotenv from "dotenv"
 import userRoute from "./routes/userRoute"
+import livreRoute from "./routes/livreRoutes"
 dotenv.config();
 
 const app = express();
@@ -11,6 +12,8 @@ const Port = process.env.PORT || 3000
 app.use(bodyParser.json())
 app.use(morgan("dev"))
 app.use("/users",userRoute)
+app.use("/livre",livreRoute)
+
 
 app.listen(Port, (err) => {
     if(err)throw err;
