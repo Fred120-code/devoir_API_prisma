@@ -33,4 +33,18 @@ export default router;
         "email": "hokage@konoha.com",
         "createdAt": "2025-06-21T15:53:32.940Z"
     }
+}
+    
+{
+  "msg": "user inscrit avec succes",
+  "newUser": {
+    "id": "68602f236e56ff9351e4891c",
+    "name": "Madara Uchiwa",
+    "email": "Madara@konoha.com",
+    "password": "$2b$10$L2W/3ulSgipZs8KaKQM2NOTeddKJwsVYUj6Wub4GzUnmItskJA7Mi",
+    "createdAt": "2025-06-28T18:06:27.860Z"
+  }
+}
+  {
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NjAyZjIzNmU1NmZmOTM1MWU0ODkxYyIsImVtYWlsIjoiTWFkYXJhQGtvbm9oYS5jb20iLCJpYXQiOjE3NTExNDQxNzYsImV4cCI6MTc1MTE0Nzc3Nn0.zMMXXnR-YegQXTT8RbTKPJ6qrp1yUWF-Od7SnwyZf_k"
 }*/
