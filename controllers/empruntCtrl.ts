@@ -43,6 +43,13 @@ const empruntCtrl = {
                 }
             })
             res.status(200).json({msg:"livre emprunté avec succes", livreEmprunté: nouvelEmprunt})
+            await prisma.notif.create({
+                data:{
+                    userID,
+                    livreID,
+                    message: `Vous avez emprunté le livre ${livre?.titre} avec succes`
+                }
+            })
         }catch(error){
             console.log("erreur lors de l'emprunt:", error);
             res.status(500).json({msg:"erreur du serveur"});

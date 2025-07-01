@@ -21,6 +21,6 @@ export const authen = (req: Request, res: Response, next: NextFunction) => {
     next(); 
   } catch (error) {
      res.status(401).json({msg:"Token invalide"})
-  }
+    }
   }
 }
