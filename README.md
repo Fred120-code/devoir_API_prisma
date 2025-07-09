@@ -76,7 +76,17 @@ IV- Notifications :
     1.​ Action : Envoie des emails de rappel aux utilisateurs pour les
     informer des dates de retour des livres empruntés.
 
+Résume des relations:
+    Un User peut avoir plusieurs emprunts et notifications
+    Un livre peut être emprunté plusieurs fois, et peut aussi apparaître dans plusieurs notifications
+    Chaque emprunt est lié à un seul livre et à un seul user
+    Chaque notif est liée à un seul livre et à un seul user
 
+
+NB: les exemple de reponses sont mis en commentaire dans les fichier routes de notre projet
+    
+
+    
 
     
   
