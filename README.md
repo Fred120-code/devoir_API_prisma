@@ -1,5 +1,5 @@
 Création d'une API REST pour une Bibliothèque en Ligne
-avec Gestion des Utilisateurs et Notifications: realisé par Fred
+avec Gestion des Utilisateurs et Notifications: realisé par Fred et Néhémie
 
 Fonction implémentées:
 
