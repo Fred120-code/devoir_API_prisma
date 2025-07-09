@@ -16,7 +16,7 @@ const empruntCtrl = {
             if(!livre){
                 res.status(404).json({msg:"le livre est introuvable"})
             }
-
+            
             //ici on verifie que le livre exxiste
             const user = await prisma.user.findUnique({
                 where:{id:userID}
@@ -94,7 +94,7 @@ const empruntCtrl = {
                     msg:"aucun emprunt pour cet utilisteur"
                 })
             }
-            res.status(200).json({msg: "historique des emprunt:", emprunt})
+            res.status(200).json({msg: "historique des emprunt", emprunt})
         }catch(error){
             console.log("erreur lors de l'affichaege", error);
             res.status(404).json({msg:"erreur lors de l'affichage"})
