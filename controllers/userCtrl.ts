@@ -6,7 +6,7 @@ import { tokenInv } from "../tokeninv"
 
 
 const JWT_SECRET = "clefSecrete"
-const prisma = new PrismaClient()
+const prisma = new PrismaClient() 
 const userCtrl ={
 
 signup: async (req: Request, res: Response) => {
@@ -97,7 +97,7 @@ signup: async (req: Request, res: Response) => {
       })
 
       if (!user) {
-            res.status(404).json({ msg: "Utilisateur non trouvé" })
+            res.status(404).json({ msg: "utilisateur non trouvé" })
       }
       res.status(200).json({ user })
     } catch (error) {
@@ -146,17 +146,17 @@ deletUser: async (req: Request, res: Response) => {
       where: { email: userData.email }
     });
     if (!user) {
-      res.status(404).json({ msg: "compte de l'utilisateur non trouvé" })
+      res.status(404).json({ msg:"compte de l'utilisateur non trouvé" })
     }else{
     await prisma.user.delete({
       where: { id: user.id }
     });
 
-    res.status(200).json({ msg: "Compte de l'utilisateur supprimé avec succès", user });
+    res.status(200).json({ msg:"Compte de l'utilisateur supprimé avec succès", user });
     }
   } catch (error) {
     console.error("erreur lors de la suppression :", error);
-     res.status(500).json({ msg: "erreur serveur" });
+     res.status(500).json({ msg:"erreur serveur" });
   }
 },
 

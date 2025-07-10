@@ -14,6 +14,9 @@ router.delete("/profile", authen, userCtrl.deletUser)
 export default router;
 
 /** {
+ * 
+ * eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NzAxZDQyN2I5YTliYjFhZjQ1Y2VhYiIsImVtYWlsIjoiZnJlZEBnbWFpbC5jb20iLCJpYXQiOjE3NTIxNzgwNDksImV4cCI6MTc1MjE4MTY0OX0.BchFw4WCfySQWR8ND917RvFJOMZ9VjcSCSi4RO_AnY8
+ * 
     "msg": "user inscrit avec succes",
     "newUser": {
         "id": "6856d57c2bb45f401295c818",
