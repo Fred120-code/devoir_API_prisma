@@ -5,7 +5,7 @@ const prisma = new PrismaClient()
 
 const empruntCtrl = {
 
-    emprunLivre: async ( req:Request,res:Response) =>{
+    emprunLivre: async (req:Request,res:Response) =>{
         try{
             const {livreID, userID} =  req.body 
 
@@ -17,7 +17,7 @@ const empruntCtrl = {
                 res.status(404).json({msg:"le livre est introuvable"})
             }
             
-            //ici on verifie que le livre exxiste
+            //ici on verifie que le livre existe
             const user = await prisma.user.findUnique({
                 where:{id:userID}
             })

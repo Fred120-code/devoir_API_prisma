@@ -3,6 +3,7 @@ import { PrismaClient } from "@prisma/client"
 import bcrypt from "bcrypt"
 import jwt from  "jsonwebtoken"
 import { tokenInv } from "../tokeninv"
+import { userValidationSchema } from "../validateEntrries"
 
 
 const JWT_SECRET = "clefSecrete"
@@ -12,10 +13,11 @@ const userCtrl ={
 signup: async (req: Request, res: Response) => {
   try {
     const {name,email,password} = req.body
-    if (!name || !email) {
-      res.status(400).json({ msg: "tous les champ sont requis"})
-    }
-    const UserExist = await prisma.user.findUnique({ 
+    const { error } = userValidationSchema.validate({ name, email, password })
+    if (error) {
+       res.status(400).json({ msg: error.message })
+    }else{
+       const UserExist = await prisma.user.findUnique({ 
         where:{ email }
     })
     if (UserExist) {
@@ -31,8 +33,9 @@ signup: async (req: Request, res: Response) => {
         password: PasswordChI,
       },
     })
-
     res.status(200).json({msg:"user inscrit avec succes",newUser})
+    }
+   
   } catch (error) {
     console.error("erreur lors de l'inscription", error)
     res.status(500).json({ msg: "erreur" })
@@ -53,7 +56,7 @@ signup: async (req: Request, res: Response) => {
         res.status(404).json({msg:"utilisateur non trouvé"})
       }else{
       const validPassword = await bcrypt.compare(password, User.password)
-      if (!validPassword) {
+      if (!validPassword){
         res.status(404).json({msg:"mot de passe est incorrect"})
       } else{
         const token = jwt.sign(
