@@ -18,7 +18,7 @@ Résume des relations:
     Chaque notif est liée à un seul livre et à un seul user
 
 
-NB: les exemple de reponses sont mis en commentaire dans les fichier routes de notre projet
+
     
 
     
