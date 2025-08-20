@@ -1,0 +1,31 @@
+
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Demo API",
+    "version": "1.0.0",
+    "description": "Création d'une API REST pour une Bibliothèque en Ligne avec Gestion des Utilisateurs et Notifications"
+  },
+  "paths": {
+    "/users/signup": {
+      "post": {
+        "summary": "nom, email, mot de passe",
+        "responses": {
+          "200": {
+            "description": "user inscrit avec succes"
+          }
+        }
+      }
+    },
+    "/users/profile": {
+      "put": {
+        "summary": "",
+        "responses": {
+          "200": {
+            "description": "Retourne les informations du profil de l'utilisateur connecté"
+          }
+        }
+      }
+    }
+  }
+}
