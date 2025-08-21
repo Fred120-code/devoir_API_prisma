@@ -16,13 +16,14 @@ const empruntCtrl = {
         res.status(404).json({ msg: "le livre est introuvable" });
       }
 
-      //ici on verifie que le livre existe
+      //ici on verifie que l'utilisateur existe
       const user = await prisma.user.findUnique({
         where: { id: userID },
       });
       if (!user) {
         res.status(404).json({ msg: "l'utilisateur est introuvable" });
       }
+
       //ici on verifie si livre est deja emprunté
       const empruntActif = await prisma.emprunt.findFirst({
         where: {
@@ -33,6 +34,7 @@ const empruntCtrl = {
       if (empruntActif) {
         res.status(404).json({ msg: "ce livre est deja emprunté" });
       }
+
       //emprunt du livre
       const nouvelEmprunt = await prisma.emprunt.create({
         data: {
@@ -41,17 +43,15 @@ const empruntCtrl = {
           estEmprunté: true,
         },
       });
-      res
-        .status(200)
-        .json({
-          msg: "livre emprunté avec succes",
-          livreEmprunté: nouvelEmprunt,
-        });
+      res.status(200).json({
+        msg: "livre emprunté avec succes",
+        livreEmprunté: nouvelEmprunt,
+      });
       await prisma.notif.create({
         data: {
           userID,
           livreID,
-          message: `Vous avez emprunté le livre ${livre?.titre} avec succes`,
+          message: `Vous avez emprunté le livre "${livre?.titre}" avec succes`,
         },
       });
     } catch (error) {
@@ -59,6 +59,7 @@ const empruntCtrl = {
       res.status(500).json({ msg: "erreur du serveur" });
     }
   },
+
   //retourne le livre emprunté
   returnLivre: async (req: Request, res: Response) => {
     try {
@@ -83,6 +84,7 @@ const empruntCtrl = {
       res.status(404).json({ msg: "erreur lors de l'emprunt" });
     }
   },
+  
   //historique des emprunts d'un utlisateur
   histEmprun: async (req: Request, res: Response) => {
     try {

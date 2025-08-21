@@ -1,11 +1,11 @@
-import  express  from "express";
+import express from "express";
 import NotifCtrl from "../controllers/notifCtrl";
 
-const router = express.Router()
+const router = express.Router();
 
-router.get("/user/:userID", NotifCtrl.afficherNotif)
+router.get("/user/:userID", NotifCtrl.afficherNotif);
 
-export default router
+export default router;
 
 /**
  * {
