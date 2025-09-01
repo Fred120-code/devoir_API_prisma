@@ -84,7 +84,7 @@ const empruntCtrl = {
       res.status(404).json({ msg: "erreur lors de l'emprunt" });
     }
   },
-  
+
   //historique des emprunts d'un utlisateur
   histEmprun: async (req: Request, res: Response) => {
     try {
